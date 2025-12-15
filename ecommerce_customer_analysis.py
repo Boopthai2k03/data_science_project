@@ -43,3 +43,4 @@ plt.show()
 # 5. Correlation
 correlation = df["TimeSpentMinutes"].corr(df["PurchaseAmountUSD"])
 print("Correlation:", correlation)
+
