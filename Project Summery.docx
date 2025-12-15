@@ -1,0 +1,41 @@
+Analyzing Simulated E-commerce Customer
+Behavior
+
+Introduction:
+In the digital era, e-commerce platforms generate vast amounts of customer interaction data.
+Analyzing such data helps businesses understand customer preferences, optimize website
+performance, and improve sales strategies. However, due to privacy and security concerns, real
+customer data cannot always be shared. This project addresses that challenge by using a
+simulated dataset to demonstrate core data science techniques. The focus is on understanding
+customer behavior through basic statistical analysis and visualization, forming a strong foundation
+for advanced analytical and machine learning tasks.
+
+Project Overview:
+This project analyzes simulated e-commerce customer behavior using Python. A synthetic dataset
+was generated to represent customer demographics and purchasing patterns. The workflow
+includes data generation, integrity checks, descriptive statistics, exploratory data analysis, and
+correlation analysis to extract meaningful insights.
+Dataset Description
+The dataset contains 500 customer records with four attributes: CustomerID, Age (18–70 years),
+TimeSpentMinutes (1–60 minutes spent on the website), and PurchaseAmountUSD (ranging from
+10 to 500 USD). The dataset was stored in Excel format for easy accessibility and reuse.
+
+Analysis Performed:
+The analysis includes data integrity checks to confirm the absence of missing values, followed by
+the computation of descriptive statistics such as mean, median, standard deviation, and quartiles.
+Visual exploration was carried out using a histogram for purchase amount distribution and a scatter
+plot to examine the relationship between time spent and purchase amount.
+
+Correlation Analysis:
+The Pearson correlation coefficient between TimeSpentMinutes and PurchaseAmountUSD was
+calculated to measure the strength and direction of their relationship. This metric helps assess
+whether increased user engagement on the website is associated with higher spending.
+
+Conclusion:
+This project successfully demonstrates the use of synthetic data to perform fundamental data
+science tasks in an e-commerce context. The analysis provides insights into customer spending
+patterns and their interaction with website engagement time. While the dataset is simulated, the
+workflow closely mirrors real-world analytical processes. The findings highlight the importance of
+data preparation, exploratory analysis, and interpretation before applying advanced modeling
+techniques. This project serves as a strong foundation for future work involving predictive analytics
+and customer behavior modeling.
