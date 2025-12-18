@@ -1,4 +1,4 @@
-import numpy as np
+Import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
@@ -9,22 +9,19 @@ np.random.seed(42)
 num_records = 500
 
 df = pd.DataFrame({
-    "CustomerID": np.arange(1, num_records + 1),
-    "Age": np.random.randint(18, 70, num_records),
-    "TransactionAmount": np.round(
-        np.random.exponential(scale=120, size=num_records), 2
-    ),
-    "ProductCategory": np.random.choice(
-        ["Electronics", "Clothing", "Furniture", "Toys"], num_records
-    )
+    "CustomerID": np.arange(1, num_records + 1),
+    "Age": np.random.randint(18, 70, num_records),
+    "PurchaseAmount": np.round(np.random.exponential(scale=120, size=num_records), 2),
+    "ProductCategory": np.random.choice(
+        ["Electronics", "Clothing", "Furniture", "Toys"], num_records
+    ),
+    "Month": np.random.choice(
+        ["Jan", "Feb", "Mar", "Apr", "May", "Jun",
+         "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"], num_records
+    )
 })
 
-# Generate Transaction Date spanning one year
-df["TransactionDate"] = pd.to_datetime("2024-01-01") + pd.to_timedelta(
-    np.random.randint(0, 365, num_records), unit="D"
-)
-
-# Save dataset
+# Save to CSV (Task 1)
 df.to_csv("customer_transactions.csv", index=False)
 
 # ---------------------------
@@ -40,36 +37,46 @@ print("\nFirst 5 Rows:")
 print(df.head())
 
 # ---------------------------
-# 3. Descriptive Statistics
+# 3. Descriptive Statistics (Overall)
 # ---------------------------
-print("\nDescriptive Statistics:")
-print(df[["Age", "TransactionAmount"]].describe())
-
-# Explicit IQR Calculation
-Q1 = df["TransactionAmount"].quantile(0.25)
-Q3 = df["TransactionAmount"].quantile(0.75)
-IQR = Q3 - Q1
-
-print("\nInterquartile Range (IQR):", IQR)
+print("\nOverall Descriptive Statistics:")
+print(df[["Age", "PurchaseAmount"]].describe())
 
 # ---------------------------
-# 4. Visualization
+# 4. Segmented Descriptive Statistics (Required Fix)
+# ---------------------------
+segmented_stats = df.groupby("ProductCategory")["PurchaseAmount"].agg(
+    Mean="mean",
+    Median="median",
+    StdDev="std"
+)
+
+print("\nSegmented Descriptive Statistics by Product Category:")
+print(segmented_stats)
+
+# ---------------------------
+# 5. Aggregation
+# ---------------------------
+sales_by_category = df.groupby("ProductCategory")["PurchaseAmount"].sum()
+print("\nTotal Spending across Product Categories:")
+print(sales_by_category)
+
+# ---------------------------
+# 6. Visualizations
 # ---------------------------
 
 # Histogram
 plt.figure()
-plt.hist(df["TransactionAmount"], bins=10, edgecolor="black")
-plt.title("Distribution of Transaction Amounts")
-plt.xlabel("Transaction Amount")
+plt.hist(df["PurchaseAmount"], bins=10, edgecolor="black")
+plt.title("Distribution of Purchase Amounts")
+plt.xlabel("Purchase Amount")
 plt.ylabel("Frequency")
 plt.show()
 
-# Bar Chart: Average Transaction Amount per Category
-avg_by_category = df.groupby("ProductCategory")["TransactionAmount"].mean()
-
+# Bar Chart: Total Spending
 plt.figure()
-avg_by_category.plot(kind="bar")
-plt.title("Average Transaction Amount per Product Category")
+sales_by_category.plot(kind="bar")
+plt.title("Total Spending across Product Categories")
 plt.xlabel("Product Category")
-plt.ylabel("Average Transaction Amount")
+plt.ylabel("Total Spending")
 plt.show()
