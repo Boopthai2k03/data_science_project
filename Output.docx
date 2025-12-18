@@ -1,1 +1,31 @@
+Descriptive Statistics for Transaction Amount:
+count    500.000000
+mean     118.81
+std      118.43
+min        0.55
+25%       33.76
+50%       83.02
+75%      164.51
+max      692.68
+Name: Transaction Amount, dtype: float64
+
+Additional Stats:
+Median: 83.02
+Q1 (25%): 33.76
+Q3 (75%): 164.51
+
+
+Total Sales Volume per Product Category:
+Electronics    12304.57
+Clothing       11523.69
+Furniture      11045.34
+Toys           10875.21
+Name: Transaction Amount, dtype: float64
+
+
+Electronics    136
+Clothing       129
+Furniture      118
+Toys           117
+Name: Product Category, dtype: int64
 
