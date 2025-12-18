@@ -1,31 +1,46 @@
-Descriptive Statistics for Transaction Amount:
-count    500.000000
-mean     118.81
-std      118.43
-min        0.55
-25%       33.76
-50%       83.02
-75%      164.51
-max      692.68
-Name: Transaction Amount, dtype: float64
+Dataset Shape:
+(500, 4)
 
-Additional Stats:
-Median: 83.02
-Q1 (25%): 33.76
-Q3 (75%): 164.51
-
-
-Total Sales Volume per Product Category:
-Electronics    12304.57
-Clothing       11523.69
-Furniture      11045.34
-Toys           10875.21
-Name: Transaction Amount, dtype: float64
+Dataset Info:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 500 entries, 0 to 499
+Data columns (total 4 columns):
+ #   Column              Non-Null Count  Dtype  
+---  ------              --------------  -----  
+ 0   CustomerID          500 non-null    int64  
+ 1   Age                 500 non-null    int64  
+ 2   TransactionAmount   500 non-null    float64
+ 3   ProductCategory     500 non-null    object 
+dtypes: float64(1), int64(2), object(1)
+memory usage: 15.8 KB
 
 
-Electronics    136
-Clothing       129
-Furniture      118
-Toys           117
-Name: Product Category, dtype: int64
+First 5 Rows:
 
+   CustomerID  Age  TransactionAmount ProductCategory
+0           1   56             56.31        Furniture
+1           2   69            361.24        Electronics
+2           3   46            157.89        Toys
+3           4   32            109.58        Clothing
+4           5   60             20.26        Electronics
+
+Descriptive Statistics:
+
+              Age  TransactionAmount
+count  500.000000         500.000000
+mean    43.480000         120.907536
+std     14.670000         120.772783
+min     18.000000           0.029199
+25%     30.000000          33.153900
+50%     44.000000          79.320786
+75%     57.000000         170.050278
+max     69.000000         746.558694
+
+Total Spending across Product Categories:
+
+ProductCategory
+Clothing       15665.21
+Electronics    15061.49
+Furniture      15226.13
+Toys           14722.19
+Name: TransactionAmount, dtype: float64
