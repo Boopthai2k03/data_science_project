@@ -1,0 +1,16 @@
+This project involves generating and analyzing a synthetic customer transaction dataset to understand spending behavior.
+
+Step 1: Data Generation
+A synthetic dataset containing 500 records was generated using Python libraries NumPy and Pandas. The dataset includes the following variables: CustomerID, Age, TransactionAmount, ProductCategory, and Month. Random distributions were used to simulate realistic customer ages and transaction amounts. The dataset was saved as a CSV file to meet submission requirements.
+
+Step 2: Data Inspection and Cleaning Documentation
+Initial inspection was performed using shape, info(), and head() to understand the structure and data types. The inspection confirmed that there were no missing values and all columns had appropriate data types (integers for IDs and age, floats for transaction amounts, and categorical strings for product category and month). Since the dataset was synthetically generated, no data cleaning actions such as missing value imputation or type conversion were necessary. This verification step ensures data quality before analysis.
+
+  Step 3: Descriptive Analysis
+Basic descriptive statistics were computed for numerical variables to summarize central tendency and dispersion. These statistics provide an overview of customer age distribution and transaction values.
+
+    Step 4: Visualization Interpretation
+A histogram of TransactionAmount shows a right-skewed distribution, indicating that most customer transactions are of lower value, with a small number of high-value purchases.
+A bar chart displaying total transaction amounts across product categories reveals that Electronics contributes the highest overall spending, suggesting higher-priced items compared to other categories.
+
+  This analysis provides a clear understanding of customer transaction patterns using structured steps and visual interpretation.
