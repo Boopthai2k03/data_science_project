@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
-import seaborn as sns
 
 # ---------------------------
 # 1. Generate synthetic dataset
@@ -10,56 +9,58 @@ np.random.seed(42)
 num_records = 500
 
 df = pd.DataFrame({
-    "Customer ID": np.arange(1, num_records + 1),
-    "Transaction Amount": np.round(np.random.exponential(scale=120, size=num_records), 2),
-    "Product Category": np.random.choice(
+    "CustomerID": np.arange(1, num_records + 1),
+    "Age": np.random.randint(18, 70, num_records),
+    "TransactionAmount": np.round(np.random.exponential(scale=120, size=num_records), 2),
+    "ProductCategory": np.random.choice(
         ["Electronics", "Clothing", "Furniture", "Toys"], num_records
-    ),
-    "Purchase Date": pd.date_range(start="2025-01-01", periods=num_records, freq="D")
+    )
 })
 
-# ---------------------------
-# 2. Descriptive statistics for Transaction Amount
-# ---------------------------
-transaction_stats = df["Transaction Amount"].describe()
-print("Descriptive Statistics for Transaction Amount:")
-print(transaction_stats)
-
-# Add median, Q1, Q3 explicitly
-print("\nAdditional Stats:")
-print("Median:", df["Transaction Amount"].median())
-print("Q1 (25%):", df["Transaction Amount"].quantile(0.25))
-print("Q3 (75%):", df["Transaction Amount"].quantile(0.75))
+# Save to CSV (Task 1 requirement)
+df.to_csv("customer_transactions.csv", index=False)
 
 # ---------------------------
-# 3. Total sales per Product Category
+# 2. Initial Data Inspection
 # ---------------------------
-sales_by_category = df.groupby("Product Category")["Transaction Amount"].sum()
-print("\nTotal Sales Volume per Product Category:")
+print("Dataset Shape:")
+print(df.shape)
+
+print("\nDataset Info:")
+print(df.info())
+
+print("\nFirst 5 Rows:")
+print(df.head())
+
+# ---------------------------
+# 3. Descriptive Statistics
+# ---------------------------
+print("\nDescriptive Statistics:")
+print(df[["Age", "TransactionAmount"]].describe())
+
+# ---------------------------
+# 4. Aggregation
+# ---------------------------
+sales_by_category = df.groupby("ProductCategory")["TransactionAmount"].sum()
+print("\nTotal Spending across Product Categories:")
 print(sales_by_category)
 
 # ---------------------------
-# 4. Visualizations
+# 5. Visualizations
 # ---------------------------
 
-# Histogram of Transaction Amount
+# Histogram
 plt.figure()
-plt.hist(df["Transaction Amount"], bins=10, edgecolor="black", color="skyblue")
-plt.title("Histogram of Transaction Amount")
+plt.hist(df["TransactionAmount"], bins=10, edgecolor="black")
+plt.title("Distribution of Transaction Amounts")
 plt.xlabel("Transaction Amount")
 plt.ylabel("Frequency")
 plt.show()
 
-# Bar chart of Product Category counts
+# Correct bar chart: Total Spending (SUM)
 plt.figure()
-df["Product Category"].value_counts().plot(kind="bar", color="lightgreen")
-plt.title("Product Category Counts")
+sales_by_category.plot(kind="bar")
+plt.title("Total Spending across Product Categories")
 plt.xlabel("Product Category")
-plt.ylabel("Count")
-plt.show()
-
-# Boxplot: Transaction Amount by Product Category
-plt.figure()
-sns.boxplot(x="Product Category", y="Transaction Amount", data=df)
-plt.title("Transaction Amount by Product Category")
+plt.ylabel("Total Spending")
 plt.show()
