@@ -1,6 +1,8 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+import seaborn as sns
+
 
 # 1. Generate synthetic dataset (500+ rows)
 np.random.seed(42)
@@ -26,11 +28,16 @@ print("Summary Statistics for Amount (USD):")
 print(stats)
 
 # 3. Bar chart - Transaction count per Region
-plt.figure(figsize=(6,4))
-df["Region"].value_counts().plot(kind="bar")
-plt.title("Transaction Count per Region")
-plt.xlabel("Region")
-plt.ylabel("Number of Transactions")
+plt.hist(df['PurchaseAmount'], bins=10, color='skyblue', edgecolor='black')
+plt.title('Histogram of Purchase Amount')
+plt.xlabel('Purchase Amount')
+plt.ylabel('Frequency')
+plt.show()
+
+df['ProductCategory'].value_counts().plot(kind='bar', color='lightgreen')
+plt.title('Product Category Counts')
+plt.xlabel('Product Category')
+plt.ylabel('Count')
 plt.show()
 
 # 4. Average transaction amount per Region
@@ -38,13 +45,10 @@ avg_amount_region = df.groupby("Region")["Amount (USD)"].mean()
 print("\nAverage Transaction Amount per Region:")
 print(avg_amount_region)
 
-# 5. Scatter plot - Time Spent vs Amount (USD)
-plt.figure(figsize=(6,4))
-plt.scatter(df["TimeSpentMinutes"], df["Amount (USD)"])
-plt.title("Time Spent vs Transaction Amount")
-plt.xlabel("Time Spent (Minutes)")
-plt.ylabel("Amount (USD)")
+sns.boxplot(x='ProductCategory', y='PurchaseAmount', data=df)
+plt.title('Purchase Amount by Product Category')
 plt.show()
+
 
 # 6. Correlation between Time Spent and Amount
 correlation = df["TimeSpentMinutes"].corr(df["Amount (USD)"])
