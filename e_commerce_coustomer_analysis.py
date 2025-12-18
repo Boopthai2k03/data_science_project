@@ -11,7 +11,7 @@ num_records = 500
 df = pd.DataFrame({
     "CustomerID": np.arange(1, num_records + 1),
     "Age": np.random.randint(18, 70, num_records),
-    "PurchaseAmount": np.round(np.random.exponential(scale=120, size=num_records), 2),
+    "TransactionAmount": np.round(np.random.exponential(scale=120, size=num_records), 2),
     "ProductCategory": np.random.choice(
         ["Electronics", "Clothing", "Furniture", "Toys"], num_records
     ),
