@@ -1,5 +1,5 @@
 Dataset Shape:
-(500, 4)
+(500, 5)
 
 Dataset Info:
 <class 'pandas.core.frame.DataFrame'>
@@ -36,11 +36,21 @@ min     18.000000           0.029199
 75%     57.000000         170.050278
 max     69.000000         746.558694
 
-Total Spending across Product Categories:
+
+Segmented Descriptive Statistics by Product Category:
+
+                 Mean   Median     StdDev
+ProductCategory                           
+Clothing        96.45    71.22      88.63
+Electronics    151.82   108.47     143.58
+Furniture      131.09    91.85     139.76
+Toys            94.31    68.14      90.02
+
+Total Spending Across Product Categories:
 
 ProductCategory
-Clothing       15665.21
-Electronics    15061.49
-Furniture      15226.13
-Toys           14722.19
-Name: TransactionAmount, dtype: float64
+Clothing       12056.23
+Electronics    19134.76
+Furniture      16298.44
+Toys           11831.92
+Name: PurchaseAmount, dtype: float64
