@@ -19,6 +19,9 @@ data = {
 
 df = pd.DataFrame(data)
 
+df.isnull().sum()
+df.dtypes
+
 # Save as Excel
 excel_path = "Transaction_Data_Corrected.xlsx"
 df.to_excel(excel_path, index=False)
