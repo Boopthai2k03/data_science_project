@@ -1,1 +1,34 @@
+This program generates and analyzes a synthetic transaction dataset for 500 records, simulating real-world e-commerce behavior while including all required columns: TransactionID, PurchaseAmount, CustomerAge, ProductCategory, TimeSpentMinutes, IsReturned, and TransactionDate. The dataset captures key transaction characteristics such as purchase amounts, customer age, product categories, and return behavior.
+Data Generation:
 
+PurchaseAmount is generated using an exponential distribution to simulate real-world skewness in spending, where most purchases are moderate but a few are high-value.
+
+CustomerAge is randomly assigned between 18 and 70 years.
+
+ProductCategory is randomly selected among Electronics, Clothing, Furniture, and Toys.
+
+IsReturned is a binary variable representing whether a product was returned.
+
+TransactionDate spans 500 consecutive days starting from 2025-01-01.
+
+Analysis Performed:
+
+Descriptive Statistics: The program calculates key summary metrics for PurchaseAmount (mean, median, min, max, standard deviation, etc.), providing insight into the central tendency and variability of transactions.
+
+Histogram: Visualizes the distribution of PurchaseAmount, confirming the right-skewed nature of purchase values.
+
+Bar Chart: Displays the frequency of transactions across different ProductCategory values, highlighting the most popular product categories.
+
+Box Plot: Compares PurchaseAmount across product categories, identifying variations and potential outliers in spending patterns.
+
+Frequency Distribution: Prints the counts of each ProductCategory to understand the categorical distribution.
+
+Key Findings:
+
+Electronics and Clothing are the most frequently purchased categories, as seen in both the bar chart and frequency table.
+
+Purchase amounts are heavily skewed, with occasional high-value transactions significantly impacting the mean.
+
+Box plots reveal that Furniture and Electronics purchases have higher variability and some outliers compared to Clothing and Toys.
+
+This program successfully combines data generation, descriptive statistics, and visualizations to provide a clear understanding of customer transactions, product popularity, and spending patterns in a synthetic e-commerce dataset.
