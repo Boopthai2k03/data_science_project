@@ -8,50 +8,67 @@ np.random.seed(42)
 num_records = 500
 
 data = {
-    "TransactionID": np.arange(1, num_records + 1),
-    "PurchaseAmount": np.round(np.random.exponential(scale=120, size=num_records), 2),
-    "CustomerAge": np.random.randint(18, 71, num_records),
-    "ProductCategory": np.random.choice(["Electronics", "Clothing", "Furniture", "Toys"], num_records),
-    "TimeSpentMinutes": np.random.randint(1, 61, num_records),
-    "IsReturned": np.random.choice([0, 1], num_records),  # 0 = not returned, 1 = returned
-    "TransactionDate": pd.date_range(start='2025-01-01', periods=num_records, freq='D')
+    "TransactionID": np.arange(1, num_records + 1),
+    "PurchaseAmount": np.round(np.random.exponential(scale=120, size=num_records), 2),
+    "CustomerAge": np.random.randint(18, 71, num_records),
+    "ProductCategory": np.random.choice(
+        ["Electronics", "Clothing", "Furniture", "Toys"], num_records
+    ),
+    "TimeSpentMinutes": np.random.randint(1, 61, num_records),
+    "IsReturned": np.random.choice([0, 1], num_records),
+    "TransactionDate": pd.date_range(start="2025-01-01", periods=num_records, freq="D")
 }
 
 df = pd.DataFrame(data)
 
-df.isnull().sum()
-df.dtypes
+# --------------------------------------------------
+# 2. Descriptive statistics for ALL numerical columns
+# --------------------------------------------------
 
-# Save as Excel
-excel_path = "Transaction_Data_Corrected.xlsx"
-df.to_excel(excel_path, index=False)
+numerical_columns = df.select_dtypes(include=["int64", "float64"])
 
-# 2. Descriptive statistics for PurchaseAmount
-stats = df["PurchaseAmount"].describe()
-print("Summary Statistics for PurchaseAmount:")
-print(stats)
+stats_all = numerical_columns.agg(
+    ["mean", "median", "std", "min", "max", "count"]
+).T
 
-# 3a. Histogram of PurchaseAmount
-plt.hist(df['PurchaseAmount'], bins=10, color='skyblue', edgecolor='black')
-plt.title('Histogram of Purchase Amount')
-plt.xlabel('Purchase Amount')
-plt.ylabel('Frequency')
-plt.show()
+# Add quartiles separately
+stats_all["Q1 (25%)"] = numerical_columns.quantile(0.25)
+stats_all["Q3 (75%)"] = numerical_columns.quantile(0.75)
 
-# 3b. Bar chart of ProductCategory counts
-df['ProductCategory'].value_counts().plot(kind='bar', color='lightgreen')
-plt.title('Product Category Counts')
-plt.xlabel('Product Category')
-plt.ylabel('Count')
-plt.show()
+print("\nDescriptive Statistics for ALL Numerical Columns:")
+print(stats_all)
 
-# 3c. Box plot comparing PurchaseAmount across ProductCategory
-sns.boxplot(x='ProductCategory', y='PurchaseAmount', data=df)
-plt.title('Purchase Amount by Product Category')
-plt.show()
+# --------------------------------------------------
+# 3. Frequency distribution for categorical variables
+# --------------------------------------------------
 
-# 4. Frequency distribution of categorical variables
-category_counts = df['ProductCategory'].value_counts()
 print("\nFrequency Distribution of ProductCategory:")
-print(category_counts)
+print(df["ProductCategory"].value_counts())
+
+print("\nFrequency Distribution of IsReturned:")
+print(df["IsReturned"].value_counts())
+
+# --------------------------------------------------
+# 4. Visualizations
+# --------------------------------------------------
+
+# Histogram of PurchaseAmount
+plt.hist(df["PurchaseAmount"], bins=10, edgecolor="black")
+plt.title("Histogram of Purchase Amount")
+plt.xlabel("Purchase Amount")
+plt.ylabel("Frequency")
+plt.show()
+
+# Bar chart of ProductCategory
+df["ProductCategory"].value_counts().plot(kind="bar")
+plt.title("Product Category Counts")
+plt.xlabel("Product Category")
+plt.ylabel("Count")
+plt.show()
+
+# Boxplot: PurchaseAmount vs ProductCategory
+sns.boxplot(x="ProductCategory", y="PurchaseAmount",
+ data=df)
+plt.title("Purchase Amount by Product Category")
+plt.show()
 
