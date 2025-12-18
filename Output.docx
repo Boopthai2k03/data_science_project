@@ -1,1 +1,26 @@
+Summary Statistics for Amount (USD):
+
+count    500.000000
+mean     120.517220
+std      116.882526
+min        0.610000
+25%       33.137500
+50%       86.380000
+75%      169.332500
+max      594.820000
+
+
+Average Transaction Amount per Region:
+
+Region
+East     125.137778
+North    120.071832
+South    124.098000
+West     110.604423
+
+
+Correlation between Time Spent and Amount (USD):
+
+-0.010583321013856803
+
 
