@@ -3,72 +3,63 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# 1. Generate synthetic dataset (500 rows)
+# ---------------------------
+# 1. Generate synthetic dataset
+# ---------------------------
 np.random.seed(42)
 num_records = 500
 
-data = {
-    "TransactionID": np.arange(1, num_records + 1),
-    "PurchaseAmount": np.round(np.random.exponential(scale=120, size=num_records), 2),
-    "CustomerAge": np.random.randint(18, 71, num_records),
-    "ProductCategory": np.random.choice(
-        ["Electronics", "Clothing", "Furniture", "Toys"], num_records
-    ),
-    "TimeSpentMinutes": np.random.randint(1, 61, num_records),
-    "IsReturned": np.random.choice([0, 1], num_records),
-    "TransactionDate": pd.date_range(start="2025-01-01", periods=num_records, freq="D")
-}
+df = pd.DataFrame({
+    "Customer ID": np.arange(1, num_records + 1),
+    "Transaction Amount": np.round(np.random.exponential(scale=120, size=num_records), 2),
+    "Product Category": np.random.choice(
+        ["Electronics", "Clothing", "Furniture", "Toys"], num_records
+    ),
+    "Purchase Date": pd.date_range(start="2025-01-01", periods=num_records, freq="D")
+})
 
-df = pd.DataFrame(data)
+# ---------------------------
+# 2. Descriptive statistics for Transaction Amount
+# ---------------------------
+transaction_stats = df["Transaction Amount"].describe()
+print("Descriptive Statistics for Transaction Amount:")
+print(transaction_stats)
 
-# --------------------------------------------------
-# 2. Descriptive statistics for ALL numerical columns
-# --------------------------------------------------
+# Add median, Q1, Q3 explicitly
+print("\nAdditional Stats:")
+print("Median:", df["Transaction Amount"].median())
+print("Q1 (25%):", df["Transaction Amount"].quantile(0.25))
+print("Q3 (75%):", df["Transaction Amount"].quantile(0.75))
 
-numerical_columns = df.select_dtypes(include=["int64", "float64"])
+# ---------------------------
+# 3. Total sales per Product Category
+# ---------------------------
+sales_by_category = df.groupby("Product Category")["Transaction Amount"].sum()
+print("\nTotal Sales Volume per Product Category:")
+print(sales_by_category)
 
-stats_all = numerical_columns.agg(
-    ["mean", "median", "std", "min", "max", "count"]
-).T
-
-# Add quartiles separately
-stats_all["Q1 (25%)"] = numerical_columns.quantile(0.25)
-stats_all["Q3 (75%)"] = numerical_columns.quantile(0.75)
-
-print("\nDescriptive Statistics for ALL Numerical Columns:")
-print(stats_all)
-
-# --------------------------------------------------
-# 3. Frequency distribution for categorical variables
-# --------------------------------------------------
-
-print("\nFrequency Distribution of ProductCategory:")
-print(df["ProductCategory"].value_counts())
-
-print("\nFrequency Distribution of IsReturned:")
-print(df["IsReturned"].value_counts())
-
-# --------------------------------------------------
+# ---------------------------
 # 4. Visualizations
-# --------------------------------------------------
+# ---------------------------
 
-# Histogram of PurchaseAmount
-plt.hist(df["PurchaseAmount"], bins=10, edgecolor="black")
-plt.title("Histogram of Purchase Amount")
-plt.xlabel("Purchase Amount")
+# Histogram of Transaction Amount
+plt.figure()
+plt.hist(df["Transaction Amount"], bins=10, edgecolor="black", color="skyblue")
+plt.title("Histogram of Transaction Amount")
+plt.xlabel("Transaction Amount")
 plt.ylabel("Frequency")
 plt.show()
 
-# Bar chart of ProductCategory
-df["ProductCategory"].value_counts().plot(kind="bar")
+# Bar chart of Product Category counts
+plt.figure()
+df["Product Category"].value_counts().plot(kind="bar", color="lightgreen")
 plt.title("Product Category Counts")
 plt.xlabel("Product Category")
 plt.ylabel("Count")
 plt.show()
 
-# Boxplot: PurchaseAmount vs ProductCategory
-sns.boxplot(x="ProductCategory", y="PurchaseAmount",
- data=df)
-plt.title("Purchase Amount by Product Category")
+# Boxplot: Transaction Amount by Product Category
+plt.figure()
+sns.boxplot(x="Product Category", y="Transaction Amount", data=df)
+plt.title("Transaction Amount by Product Category")
 plt.show()
-
